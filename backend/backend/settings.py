@@ -41,7 +41,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
-    # 'drf_yasg',
+    'drf_yasg',
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS
@@ -148,4 +148,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+
+    # Swagger and ReDoc schema settings
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }

@@ -18,9 +18,16 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from backend.swagger import schema_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # JWT URLs
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Swagger and ReDoc URLs
+    path('api_v1/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api_v2/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
