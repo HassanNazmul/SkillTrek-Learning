@@ -1,0 +1,4 @@
+### GET ALL Users
+GET http://127.0.0.1:8000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4MDc4NDMwLCJpYXQiOjE3MjgwNzgxMzAsImp0aSI6ImFlNjY2NDk4YmE1NzQ2YTNiMTc3Njk4MDg4ZDA4ODFjIiwidXNlcl9pZCI6MX0.UyfX_ufyVsVr_ajXCaylJV_PK5gArDfpd4yCZBcr3Q0
+Content-Type: application/json.1:8000/api/users/

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -44,5 +45,33 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
+    def clean(self):
+        # Validate the conditions before saving
+        if self.is_student and (self.is_admin or self.is_staff):
+            raise ValidationError("A student cannot be an admin or staff.")
+
+        if self.is_admin and self.is_student:
+            raise ValidationError("An admin cannot be a student.")
+
+        if self.is_admin and not self.is_staff:
+            raise ValidationError("An admin must also be staff.")
+
+    def save(self, *args, **kwargs):
+        # Automatically activate the user if any permission field is selected
+        if self.is_superuser or self.is_staff or self.is_admin:
+            self.is_active = True
+        else:
+            self.is_active = False
+
+        # Enforce role constraints
+        if self.is_student:
+            self.is_admin = False
+            self.is_staff = False
+
+        if self.is_admin:
+            self.is_staff = True
+            self.is_student = False
+
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.email
